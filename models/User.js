@@ -1,0 +1,75 @@
+import mongoose from "mongoose";
+import validator from "validator";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+const Schema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please enter your name"],
+  },
+  email: {
+    type: String,
+    required: [true, "Please enter your email"],
+    unique: true,
+    validate: validator.isEmail,
+  },
+  password: {
+    type: String,
+    required: [true, "Please enter your password"],
+    minLength: [6, "Password should greater than 6 characters"],
+    select: false,
+  },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+  },
+  subscription: {
+    id: String,
+    status: String,
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  playlist: [
+    {
+      course: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+      poster: String,
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  ResetPasswordToken: String,
+  ResetPasswordExpire: String,
+});
+
+Schema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const hashedPassword = await bcrypt.hash(this.password, 10);
+  this.password = hashedPassword;
+  next();
+});
+
+Schema.methods.getJWToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "15d",
+  });
+};
+
+Schema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+export const User = mongoose.model("User", Schema);
