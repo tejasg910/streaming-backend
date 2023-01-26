@@ -1,6 +1,15 @@
 import express from "express";
 import { getAllCourses } from "../controllers/courseController.js";
-import { login, logout, register } from "../controllers/userController.js";
+import {
+  changePassword,
+  getMyProfile,
+  login,
+  logout,
+  register,
+  updateProfile,
+  updateProfilePicture,
+} from "../controllers/userController.js";
+import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -15,10 +24,19 @@ router.route("/login").post(login);
 router.route("/logout").get(logout);
 
 //getmyprofile
+router.route("/me").get(isAuthenticated, getMyProfile);
 
 //changepassword
 
-//updateprofile picture
+router.route("/changepassword").put(isAuthenticated, changePassword);
+
+//updateprofile
+router.route("/updateprofile").put(isAuthenticated, updateProfile);
+
+//update profile picture
+router
+  .route("/updateprofilepicture")
+  .put(isAuthenticated, updateProfilePicture);
 
 //forget passwoed
 
