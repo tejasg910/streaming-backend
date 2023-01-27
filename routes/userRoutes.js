@@ -1,11 +1,15 @@
 import express from "express";
 import { getAllCourses } from "../controllers/courseController.js";
 import {
+  addToPlayList,
   changePassword,
+  forgotPassword,
   getMyProfile,
   login,
   logout,
   register,
+  removeFromPlayList,
+  resetPassword,
   updateProfile,
   updateProfilePicture,
 } from "../controllers/userController.js";
@@ -39,11 +43,14 @@ router
   .put(isAuthenticated, updateProfilePicture);
 
 //forget passwoed
-
+router.route("/forgotpassword").post(forgotPassword);
 //reset password
+router.route("/resetpassword/:token").put(resetPassword);
 
 //add to playlists
+router.route("/addtoplaylist").post(isAuthenticated, addToPlayList);
 
 //remove from playlists
+router.route("/removefromplaylist").post(isAuthenticated, removeFromPlayList);
 
 export default router;
