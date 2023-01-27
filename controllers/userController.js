@@ -216,7 +216,7 @@ export const removeFromPlayList = catchAsyncError(async (req, res, next) => {
 
   const user = await User.findById(req.user.id);
 
-  const course = await Course.findById(req.body.id);
+  const course = await Course.findById(req.query.id);
 
   if (!course) return next(new ErrorHandler("Invalid course id", 404));
 
@@ -234,3 +234,6 @@ export const removeFromPlayList = catchAsyncError(async (req, res, next) => {
       message: "Removed from playlist",
     });
 });
+
+
+
