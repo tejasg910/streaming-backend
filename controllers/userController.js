@@ -5,6 +5,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { sendToken } from "../utils/sendToken.js";
 import crypto from "crypto";
 import { Course } from "../models/Course.js";
+import cloudinary from "cloudinary";
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -269,5 +270,47 @@ export const updateUserRole = catchAsyncError(async (req, res, next) => {
       success: true,
 
       message: `You are now ${user.role}`,
+    });
+});
+
+export const deleteUser = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+  if (!user) return next(new ErrorHandler("user not found"), 404);
+  await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+  //cancel subscription
+
+  await user.remove();
+
+  res
+    .status(200)
+
+    .json({
+      success: true,
+
+      message: `User deleted successfully`,
+    });
+});
+
+export const deleteMyProfile = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+
+  await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+  //cancel subscription
+
+  await user.remove();
+
+  res
+    .status(200)
+    .cookie("token", null, { expires: new Date(Date.now()) })
+    .json({
+      success: true,
+
+      message: `User deleted successfully`,
     });
 });

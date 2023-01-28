@@ -3,6 +3,8 @@ import { getAllCourses } from "../controllers/courseController.js";
 import {
   addToPlayList,
   changePassword,
+  deleteMyProfile,
+  deleteUser,
   forgotPassword,
   getAllUsers,
   getMyProfile,
@@ -30,7 +32,10 @@ router.route("/login").post(login);
 router.route("/logout").get(logout);
 
 //getmyprofile
-router.route("/me").get(isAuthenticated, getMyProfile);
+router
+  .route("/me")
+  .get(isAuthenticated, getMyProfile)
+  .delete(isAuthenticated, deleteMyProfile);
 
 //changepassword
 
@@ -61,6 +66,7 @@ router.route("/admin/users").get(isAuthenticated, authorizedAdmin, getAllUsers);
 
 router
   .route("/admin/user/:id")
-  .put(isAuthenticated, authorizedAdmin, updateUserRole);
+  .put(isAuthenticated, authorizedAdmin, updateUserRole)
+  .delete(isAuthenticated, authorizedAdmin, deleteUser);
 
 export default router;
