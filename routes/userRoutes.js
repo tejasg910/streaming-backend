@@ -4,6 +4,7 @@ import {
   addToPlayList,
   changePassword,
   forgotPassword,
+  getAllUsers,
   getMyProfile,
   login,
   logout,
@@ -12,8 +13,9 @@ import {
   resetPassword,
   updateProfile,
   updateProfilePicture,
+  updateUserRole,
 } from "../controllers/userController.js";
-import { isAuthenticated } from "../middlewares/auth.js";
+import { authorizedAdmin, isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -52,5 +54,13 @@ router.route("/addtoplaylist").post(isAuthenticated, addToPlayList);
 
 //remove from playlists
 router.route("/removefromplaylist").post(isAuthenticated, removeFromPlayList);
+
+//admin routes
+
+router.route("/admin/users").get(isAuthenticated, authorizedAdmin, getAllUsers);
+
+router
+  .route("/admin/user/:id")
+  .put(isAuthenticated, authorizedAdmin, updateUserRole);
 
 export default router;

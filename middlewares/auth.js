@@ -15,3 +15,11 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 
   next();
 });
+
+export const authorizedAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    next(new ErrorHandler(`${req.user.role} is not admin`), 403);
+  }
+
+  next();
+};
