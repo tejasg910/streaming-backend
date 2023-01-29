@@ -25,10 +25,12 @@ const Schema = new mongoose.Schema({
     enum: ["admin", "user"],
     default: "user",
   },
-  subscription: {
-    id: String,
-    status: String,
-  },
+  subscription: [
+    {
+      id: String,
+      status: String,
+    },
+  ],
   avatar: {
     public_id: {
       type: String,
