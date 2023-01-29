@@ -23,3 +23,14 @@ export const authorizedAdmin = (req, res, next) => {
 
   next();
 };
+
+export const authorizedSubscribers = (req, res, next) => {
+  if (req.user.subscription.status !== "active" || req.user.role !== "user") {
+    next(
+      new ErrorHandler(`${req.user.role} You are not active subscriber`),
+      403
+    );
+  }
+
+  next();
+};

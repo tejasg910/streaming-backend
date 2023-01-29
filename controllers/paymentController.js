@@ -4,7 +4,6 @@ import ErrorHandler from "../utils/errorHandler.js";
 import crypto from "crypto";
 import { instance } from "../server.js";
 import { Payment } from "../models/Payment.js";
-import { accessSync } from "fs";
 export const buySubscription = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 

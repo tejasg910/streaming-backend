@@ -1,6 +1,7 @@
 import express from "express";
 import {
   buySubscription,
+  cancelSubscription,
   getRazorpayKey,
   paymetVefication,
 } from "../controllers/paymentController.js";
@@ -19,6 +20,6 @@ router.route("/paymentverification").post(isAuthenticated, paymetVefication);
 router.route("/razorpaykey").get(getRazorpayKey);
 
 //cancel subscription
-router.route("/subscribe/cancel").delete(isAuthenticated);
+router.route("/subscribe/cancel").delete(isAuthenticated, cancelSubscription);
 
 export default router;
