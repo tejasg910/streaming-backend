@@ -18,11 +18,12 @@ import {
   updateUserRole,
 } from "../controllers/userController.js";
 import { authorizedAdmin, isAuthenticated } from "../middlewares/auth.js";
+import singleUpload from "../middlewares/multer.js";
 
 const router = express.Router();
 
 //registration of new user
-router.route("/register").post(register);
+router.route("/register").post(singleUpload, register);
 
 // login
 router.route("/login").post(login);

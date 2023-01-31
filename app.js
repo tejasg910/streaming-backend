@@ -21,6 +21,8 @@ app.use(
   })
 );
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 import course from "./routes/CourseRoutes.js";
 import user from "./routes/userRoutes.js";
 import ErrorMiddleWare from "./middlewares/Error.js";

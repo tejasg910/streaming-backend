@@ -10,11 +10,12 @@ import { Stats } from "../models/Stats.js";
 import getDataUri from "../utils/dataUri.js";
 
 export const register = catchAsyncError(async (req, res, next) => {
+  console.log(req.body);
   const { name, email, password } = req.body;
   const file = req.file;
   console.log(file, "this is file");
   console.log(name, email, password);
-  if (!name || !email || !password || !file)
+  if (!name && !email && !password && !file)
     return next(new ErrorHandler("Please provide all fields", 404));
 
   let user = await User.findOne({ email });
