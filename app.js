@@ -2,6 +2,8 @@ import express from "express";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import bodyParser from "body-parser";
+
 config({
   path: "./config/config.env",
 });
