@@ -128,6 +128,20 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 
 //pending updateprofilepicture
 export const updateProfilePicture = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const file = req.file;
+
+  if (!user) return next(new ErrorHandler("User not found", 404));
+  const fileUri = getDataUri(file);
+  const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
+  user.avatar = {
+    public_id: mycloud.public_id,
+    url: mycloud.secure_url,
+  };
+
+  await user.save();
+
   res
     .status(200)
 
