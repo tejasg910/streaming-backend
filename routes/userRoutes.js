@@ -51,7 +51,7 @@ router
   .put(isAuthenticated, singleUpload, updateProfilePicture);
 
 //forget passwoed
-router.route("/forgotpassword").post(isAuthenticated, forgotPassword);
+router.route("/forgotpassword").post(forgotPassword);
 //reset password
 router.route("/resetpassword/:token").put(resetPassword);
 

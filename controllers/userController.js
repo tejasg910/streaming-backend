@@ -154,7 +154,7 @@ export const updateProfilePicture = catchAsyncError(async (req, res, next) => {
 
 export const forgotPassword = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
-
+  console.log(email);
   const user = await User.findOne({ email });
   if (!user) return next(new ErrorHandler("User not found", 400));
 
