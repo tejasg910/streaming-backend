@@ -237,17 +237,17 @@ export const addToPlayList = catchAsyncError(async (req, res, next) => {
 });
 
 export const removeFromPlayList = catchAsyncError(async (req, res, next) => {
-  const { token } = req.params;
-
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
 
   const course = await Course.findById(req.query.id);
 
   if (!course) return next(new ErrorHandler("Invalid course id", 404));
 
-  user.playlist = user.playlist.filter((item) => {
+  const newPlaylist = user.playlist.filter((item) => {
     return item.course.toString() !== course._id.toString();
   });
+
+  user.playlist = newPlaylist;
 
   await user.save();
   res
