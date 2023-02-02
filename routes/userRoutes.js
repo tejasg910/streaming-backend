@@ -60,7 +60,7 @@ router.route("/addtoplaylist").post(isAuthenticated, addToPlayList);
 
 //remove from playlists
 router
-  .route("/removefromplaylist/:id")
+  .route("/removefromplaylist?id")
   .delete(isAuthenticated, removeFromPlayList);
 
 //admin routes
