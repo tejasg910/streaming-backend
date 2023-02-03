@@ -23,7 +23,7 @@ export const buySubscription = catchAsyncError(async (req, res, next) => {
   user.subscription.status = subscription.status;
   await user.save();
 
-  res.status(201).json({ success: false, subscriptionId: subscription.id });
+  res.status(201).json({ success: true, subscriptionId: subscription.id });
 });
 
 export const paymetVefication = catchAsyncError(async (req, res, next) => {
