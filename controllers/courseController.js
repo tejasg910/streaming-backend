@@ -58,10 +58,7 @@ export const addLecture = catchAsyncError(async (req, res, next) => {
   const course = await Course.findById(req.params.id);
   if (!course) return next(new ErrorHandler("Course not found", 404));
   const file = req.file;
-  const fileUri = getDataUri(file);
-  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
-    resource_type: "video",
-  });
+
   await Course.create({
     title,
     description,
@@ -70,7 +67,10 @@ export const addLecture = catchAsyncError(async (req, res, next) => {
     poster: { public_id: myCloud.public_id, url: myCloud.secure_url },
   });
   //upload file here
-
+  const fileUri = getDataUri(file);
+  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+    resource_type: "video",
+  });
   course.lectures.push({
     title,
     description,
