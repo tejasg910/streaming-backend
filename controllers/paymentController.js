@@ -54,7 +54,7 @@ export const paymetVefication = catchAsyncError(async (req, res, next) => {
   user.subscription.status = "active";
   await user.save();
   res.redirect(
-    `${process.env.FRONTEND_URL}/paymentsuccess?reference${razorpay_payment_id}`
+    `${process.env.FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
   );
 });
 
