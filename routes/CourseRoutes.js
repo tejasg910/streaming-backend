@@ -33,6 +33,8 @@ router
 
 //delete lecture
 
-router.route("/course").delete(isAuthenticated, authorizedAdmin, deleteLecture);
+router
+  .route("/lecture")
+  .delete(isAuthenticated, authorizedAdmin, deleteLecture);
 
 export default router;
