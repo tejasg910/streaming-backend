@@ -7,10 +7,10 @@ const Schema = new mongoose.Schema({
     minLength: [4, "Length should be greater than 4"],
     maxLength: [80, "Can not exceed than 80 characters"],
   },
-  title: {
+  description: {
     type: String,
-    required: [true, "Please enter course title"],
-    maxLength: [20, "Length should not be greater than 20"],
+    required: [true, "Please enter course description"],
+    maxLength: [1000, "Length should not be greater than 1000"],
   },
   lectures: [
     {
