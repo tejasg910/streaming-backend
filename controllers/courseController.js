@@ -107,7 +107,7 @@ export const deleteLecture = catchAsyncError(async (req, res, next) => {
 
   if (!course) return next(new ErrorHandler("Course not found", 404));
   const lecture = course.lectures.find((item) => {
-    return item._id.toString() === lectureId.toString();
+    if (item._id.toString() === lectureId.toString()) return item;
   });
 
   await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
