@@ -110,9 +110,9 @@ export const deleteLecture = catchAsyncError(async (req, res, next) => {
     if (item._id.toString() === lectureId.toString()) return item;
   });
 
-  await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
-    resource_type: "video",
-  });
+  // await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
+  //   resource_type: "video",
+  // });
 
   course.lectures = course.lectures.filter((item) => {
     return item._id.toString() !== lectureId.toString();
@@ -121,7 +121,7 @@ export const deleteLecture = catchAsyncError(async (req, res, next) => {
   await course.save();
   res
     .status(200)
-    .json({ success: true, message: "Lecture deleted successfully" });
+    .json({ success: true, message: "Lecture deleted successfully", lecture });
 });
 
 Course.watch().on("change", async () => {
