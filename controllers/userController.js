@@ -291,7 +291,7 @@ export const updateUserRole = catchAsyncError(async (req, res, next) => {
     .json({
       success: true,
 
-      message: `You are now ${user.role}`,
+      message: `${user.name} are now ${user.role}`,
     });
 });
 
