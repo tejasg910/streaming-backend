@@ -16,7 +16,7 @@ import { createTransport } from "nodemailer";
 //   });
 // };
 
-export const sendEmail = async (to, subject, text) => {
+export const sendEmail = async (from, to, subject, text) => {
   const transporter = createTransport({
     host: "smtp.elasticemail.com",
     port: 2525,
@@ -27,9 +27,10 @@ export const sendEmail = async (to, subject, text) => {
     },
   });
   await transporter.sendMail({
-    from: "developertejas2405@gmail.com",
+    from,
     to,
     subject,
     text,
+    html: text,
   });
 };

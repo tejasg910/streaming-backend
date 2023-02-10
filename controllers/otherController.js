@@ -12,7 +12,11 @@ export const contact = catchAsyncError(async (req, res, next) => {
 
   res
     .status(200)
-    .json({ success: true, message: "your message has been to the email" });
+    .json({
+      success: true,
+      message:
+        "your message has been to the email, please check your spam folder",
+    });
 });
 
 export const courseReqeust = catchAsyncError(async (req, res, next) => {
