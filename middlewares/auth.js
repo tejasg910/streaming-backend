@@ -26,7 +26,7 @@ export const authorizedAdmin = (req, res, next) => {
 
 export const authorizedSubscribers = (req, res, next) => {
   if (req.user.role === "admin") {
-    next();
+    return next();
   }
   if (req.user.subscription.status !== "active" || req.user.role !== "admin") {
     return next(
