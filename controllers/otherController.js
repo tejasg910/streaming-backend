@@ -5,18 +5,16 @@ import { sendEmail } from "../utils/sendEmail.js";
 export const contact = catchAsyncError(async (req, res, next) => {
   const { name, email, message } = req.body;
   const to = process.env.MY_MAIL;
-  const from = "tejasgiri910@gmail.com";
+  const from = email;
   const subject = "Contact from streaming";
   const text = `I am ${name} and my email is${email}.\n ${message}`;
   await sendEmail(from, to, subject, text);
 
-  res
-    .status(200)
-    .json({
-      success: true,
-      message:
-        "your message has been to the email, please check your spam folder",
-    });
+  res.status(200).json({
+    success: true,
+    message:
+      "your message has been to the email, please check your spam folder",
+  });
 });
 
 export const courseReqeust = catchAsyncError(async (req, res, next) => {
