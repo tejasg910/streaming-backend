@@ -18,11 +18,12 @@ import { createTransport } from "nodemailer";
 
 export const sendEmail = async (to, subject, text) => {
   const transporter = createTransport({
-    service: "gmail",
-
+    host: "smtp.elasticemail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSWORD,
+      user: "developertejas2405@gmail.com",
+      pass: "DCDA69D393E46967621DB56A93C5F420BB48F6944A18F11D1E56C5C61ABCDC7E18C943B4DF066FE2A9EB0D2763E0C24E",
     },
   });
   await transporter.sendMail({
