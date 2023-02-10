@@ -5,10 +5,10 @@ import { sendEmail } from "../utils/sendEmail.js";
 export const contact = catchAsyncError(async (req, res, next) => {
   const { name, email, message } = req.body;
   const to = process.env.MY_MAIL;
-
+  const from = "tejasgiri910@gmail.com";
   const subject = "Contact from streaming";
   const text = `I am ${name} and my email is${email}.\n ${message}`;
-  await sendEmail(to, subject, text);
+  await sendEmail(from, to, subject, text);
 
   res
     .status(200)
