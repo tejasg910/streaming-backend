@@ -23,7 +23,7 @@ export const sendEmail = async (to, subject, text) => {
     secure: false, // true for 465, false for other ports
     auth: {
       user: "developertejas2405@gmail.com",
-      pass: "DCDA69D393E46967621DB56A93C5F420BB48F6944A18F11D1E56C5C61ABCDC7E18C943B4DF066FE2A9EB0D2763E0C24E",
+      pass: "B4F3CC33F7E6F9ACB24083FAD4CF1FF16963",
     },
   });
   await transporter.sendMail({
