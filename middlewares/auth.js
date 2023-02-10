@@ -25,9 +25,12 @@ export const authorizedAdmin = (req, res, next) => {
 };
 
 export const authorizedSubscribers = (req, res, next) => {
+  if (req.user.role === "admin") {
+    next();
+  }
   if (req.user.subscription.status !== "active" || req.user.role !== "admin") {
     return next(
-      new ErrorHandler(`${req.user} You are not active subscriber`),
+      new ErrorHandler(`${req.user.name} You are not active subscriber`),
       403
     );
   }
