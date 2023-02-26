@@ -92,6 +92,6 @@ export const cancelSubscription = catchAsyncError(async (req, res, next) => {
     success: true,
     message: refund
       ? "subscription canceled successfully. You will receive your payment within 7 days"
-      : "subscription canceled, no refund initiated as subscription was cancelled after 7 days",
+      : "subscription canceled, no refund initiated as subscription was cancelled after 7 days.",
   });
 });
