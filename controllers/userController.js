@@ -159,14 +159,10 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
   const resetToken = await user.getResetToken();
   await user.save();
   // send token via email
+  const from = process.env.ELASTIC_USER_NAME;
   const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
   const message = `Click on the link to reset your password. ${url}. If you have not requested please ignore`;
-  await sendEmail(
-    "developertejas2405@gmail.com",
-    email,
-    `course streaming reset password`,
-    message
-  );
+  await sendEmail(from, email, `course streaming reset password`, message);
 
   res
     .status(200)

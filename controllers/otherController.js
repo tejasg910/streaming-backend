@@ -5,8 +5,8 @@ import { sendEmail } from "../utils/sendEmail.js";
 export const contact = catchAsyncError(async (req, res, next) => {
   const { name, email, message } = req.body;
   console.log(req.body);
-  const to = "tejasgiri910@gmail.com";
-  const from = process.env.MY_MAIL;
+  const to = process.env.MY_MAIL;
+  const from = process.env.ELASTIC_USER_NAME;
   const subject = "Contact from streaming";
   const text = `I am ${name} and my email is${email}.\n ${message}`;
   await sendEmail(from, to, subject, text);
@@ -21,10 +21,10 @@ export const contact = catchAsyncError(async (req, res, next) => {
 export const courseReqeust = catchAsyncError(async (req, res, next) => {
   const { name, email, course } = req.body;
   const to = process.env.MY_MAIL;
-
+  const from = process.env.ELASTIC_USER_NAME;
   const subject = "Requesting a course from streaming";
   const text = `I am ${name} and my email is${email}.\n ${course}`;
-  await sendEmail(to, subject, text);
+  await sendEmail(from, to, subject, text);
 
   res.status(200).json({
     success: true,
