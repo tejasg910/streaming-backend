@@ -24,8 +24,8 @@ export const sendEmail = async (
 ) => {
   const transporter = createTransport({
     host: "smtp.elasticemail.com",
-    port: 2525,
-    secure: false, // true for 465, false for other ports
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
       user: process.env.ELASTIC_USER_NAME,
       pass: process.env.ELASTIC_PASS,
