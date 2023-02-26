@@ -29,6 +29,7 @@ export const sendEmail = async (
     auth: {
       user: process.env.ELASTIC_USER_NAME,
       pass: process.env.ELASTIC_PASS,
+      authMethod: "LOGIN",
     },
   });
   await transporter.sendMail({
