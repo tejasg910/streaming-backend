@@ -15,6 +15,32 @@ import { createTransport } from "nodemailer";
 //     text,
 //   });
 // };
+import Mailjet from "node-mailjet";
+
+// export const sendEmail = async (
+//   from = "developertejas2405@gmail.com",
+//   to,
+//   subject,
+//   text
+// ) => {
+//   const transporter = createTransport({
+//     host: "smtp.elasticemail.com",
+//     port: 465,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//       user: process.env.ELASTIC_USER_NAME,
+//       pass: process.env.ELASTIC_PASS,
+//       authMethod: "LOGIN",
+//     },
+//   });
+//   await transporter.sendMail({
+//     from,
+//     to,
+//     subject,
+//     text,
+//     html: text,
+//   });
+// };
 
 export const sendEmail = async (
   from = "developertejas2405@gmail.com",
@@ -23,20 +49,24 @@ export const sendEmail = async (
   text
 ) => {
   const transporter = createTransport({
-    host: "smtp.elasticemail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
+    service: "gmail",
     auth: {
-      user: process.env.ELASTIC_USER_NAME,
-      pass: process.env.ELASTIC_PASS,
-      authMethod: "LOGIN",
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSWORD,
     },
   });
-  await transporter.sendMail({
+
+  const mailOptions = {
     from,
     to,
     subject,
     text,
-    html: text,
+  };
+  await transporter.sendMail(mailOptions, function (err, info) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("email sent ");
+    }
   });
 };
